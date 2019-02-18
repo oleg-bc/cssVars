@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Scoped CSS Variables and JS</title>
+  <title>Scoped CSS Vars w JS</title>
 </head>
 <body>
-  <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
+  <h2>Update CSS Vars with <span class='h1'>JS</span></h2>
 
   <div class="controls">
     <label for="spacing">Spacing:</label>
@@ -23,7 +23,7 @@
   <style>
 
     :root{
-      --base: #ffc600;
+      --base: #ff002b;
       --spacing: 10px;
       --blur: 10px;
     }
@@ -35,6 +35,9 @@
     }
 
     .h1{
+      color: var(--base);
+    }
+    .h2{
       color: var(--base);
     }
 
@@ -56,6 +59,11 @@
       margin-bottom: 50px;
     }
 
+    a {
+      color: var(--base);
+      text-decoration: none;
+    }
+
     input {
       width: 100px;
     }
@@ -64,6 +72,23 @@
   <script>
 
     const inputs = document.querySelectorAll('.controls input');
+
+    function handleUpdate(){
+      // console.log(this.value);
+
+      //dataset - the object that contains ALL the data attributes - NOTE not an array - a node list
+      const suffix=this.dataset.sizing || '';
+
+      //accessing the the CSS VARIABLES and updating them
+      //access the entire document
+
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+
+    }
+
+    inputs.forEach(input => input.addEventListener('change', handleUpdate));
+    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+
 
   </script>
 
